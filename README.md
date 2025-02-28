@@ -40,12 +40,13 @@ This repository contains the **Makerspace Card Reader Script** for managing user
 
 2. **Script Setup**:
    - Clone this repository.
-   - Ensure you have "background.png" and "BackgroundTablet.png" in main directory. #will be included in the github at a later date.
+   - Ensure you have "background.png" and "BackgroundTablet.png" in main directory.
    - Install the required Python libraries using:
      ```bash
      pip install -r requirements.txt
      ```
    - Ensure the Excel file `hardware_users.xlsx` is not open when running the script, as the data will not be able to write if it's locked by another process.
+   - If script still does not run, ensure to pip install remaining missing libraries until program will run, this may take a while.
 
 ## Running the Script
 To run the card reader script:
@@ -56,12 +57,12 @@ To run the card reader script:
 An explanation of the required Libraries:
 
 - **Tkinter**: Built-in Python library for GUI creation.
-- **Random**: Part of Python’s standard library for generating random numbers. This was going to be used for random chance of fun popups or music to keep the script engaging for interns.
-- **Webbrowser**: Standard Python library to open web browsers.
-- **Subprocess**: Standard library for running external scripts/commands.
+- **Random**: Part of Python’s standard library for generating random numbers. This was going to be used for random chance of fun popups or music to keep the script engagement but has not been implemented yet.
+- **Webbrowser**: Standard Python library to open web browsers and used to open student directory in background.
+- **Subprocess**: Standard library for running external scripts/commands. The second .py file is opened this way to show over the scan screen.
 - **Sys**: For interacting with system-specific functions.
 - **Pillow (PIL)**: Used for image manipulation.
-- **CustomTkinter**: Used for modern basic graphics.
+- **CustomTkinter**: Used for modern basic graphics. Currently only used for second script.
 - **OpenPyXL**:For working with Excel documents.
 - **Screeninfo**: To get monitor display information to adjust the script size based on the display to make it work fullscreen on any computer.
 - **PyGetWindow**: Used for window management tasks. I don't remember why this is in there.

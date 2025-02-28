@@ -78,3 +78,5 @@ An explanation of the required Libraries:
   - **Selenium Exceptions**: To handle browser-specific errors.
 - **BeautifulSoup**: for retrieving user data from the student directory.
 - **Internet access** for retrieving user data from the student directory.
+
+Donations: Paw points for a Caniac Combo are accepted

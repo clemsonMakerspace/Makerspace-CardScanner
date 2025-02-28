@@ -1,6 +1,6 @@
 # Makerspace Card Reader Script
 
-This repository contains the **Makerspace Card Reader Script** for managing user check-ins and retrieving user data from the student directory. The script uses an Excel document to log user details and scan-ins, making it easy to keep track of makerspace usage.
+The **Makerspace Card Reader Script** manages user check-ins and retrives user data from the clemson student directory to form its own database. The script uses an Excel document to log user details and scan-ins, making it easy to keep track of makerspace usage.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -12,12 +12,12 @@ This repository contains the **Makerspace Card Reader Script** for managing user
 
 ## Overview
 - The Card Reader Script was made to simplify sign-in to the makerspace and replace the web-interface given on the sign-in tablet ([visit.cumaker.space](https://visit.cumaker.space/))
-- The goal of the script is to associate scan data (hardware ID) to a clemson user account and record time scanned.
+- The goal of the script is to associate scan data (hardware ID) to a clemson user account and record a time stamp for the scan.
 
 ## Features
 - Automatic scan-in and logging of makerspace users with only one username entry per scan device.
 - Integration with student directory for retrieving user data.
-- Data logging in an Excel file.
+- Data logging and editing in an Excel file.
 
 ## Requirements
 
@@ -27,7 +27,8 @@ This repository contains the **Makerspace Card Reader Script** for managing user
 ```bash
      pip install -r requirements.txt
 ```
-- **Chrome Web Driver** : should be installed already if you have chrome or a chromium based browser installed. 
+- **Chrome Web Driver** : should be installed already if you have chrome or a chromium based browser installed.
+- **Excel or Alternative** : Should be able to edit an .xlsx document.
 
 ## Excel Setup
 1. **Excel Document**:  
@@ -36,7 +37,7 @@ This repository contains the **Makerspace Card Reader Script** for managing user
      - **Scans**: To log the scan-ins (time and hardware_id).
      - **Users**: To store user details such as name, ID, major, and training data (to be added).
    - The sheet names and file name can be adjusted by modifying the first few variables in the script `CardReaderMakerspace.py`.
-   - Before writing of the script will work, please enter an example entry into row 2 and a heading into row 1 of "Users".
+   - Before writing of the script will work, please enter an example entry into row 2 and a heading into row 1 of "Users". (The data does not matter, just ensure the sheet is not blank.)
 
 2. **Script Setup**:
    - Clone this repository.

@@ -1,7 +1,8 @@
 import tkinter as tk #graphics
-from tkinter import Canvas# also graphics
+import PIL
 from PIL import Image, ImageTk #graphics
-import random #planned to add random effects and sounds on scan in for fun
+from tkinter import Canvas# also graphics
+import random #Plans to add randomized backgrounds or random chance events on scan.
 import webbrowser #to open browser
 import subprocess #to open other script
 
@@ -15,7 +16,7 @@ def handle_entry(event=None):
         hardware_id = user_input
         print(f"Hardware ID entered: {hardware_id}")
         username = None
-        start_confetti()  # YIPPPIEEEE CONFETTTIIIIII
+        #start_confetti()  # YIPPPIEEEE CONFETTTIIIIII (commented out bc not being used rn)
 
         if 'hardware_id' in globals():
             subprocess.Popen(["python", "CardReaderMakerspace.py", hardware_id])
@@ -38,33 +39,23 @@ root = tk.Tk()
 root.title("Sign In")
 root.attributes('-fullscreen', True)  # Make it fullscreen
 
-# Function to draw a gradient background
-# Function to set and scale the background image
-def set_background_image(canvas):
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    
-    # Load the background image
-    bg_image = Image.open("BackgroundTablet.png")
-    
-    # Resize the image to fit the screen, using nearest neighbor to avoid blur
-    resized_image = bg_image.resize((screen_width, screen_height), Image.NEAREST)
-    bg_photo = ImageTk.PhotoImage(resized_image)
-    
-    # Create a label to display the image, set as the canvas background
-    bg_label = tk.Label(canvas, image=bg_photo)
-    bg_label.image = bg_photo  # Keep a reference to avoid garbage collection
-    bg_label.place(x=0, y=0, relwidth=1, relheight=1)
-
-# Create a canvas for the background
+# Create a canvas for the gradient background
 canvas = Canvas(root, width=root.winfo_screenwidth(), height=root.winfo_screenheight())
 canvas.pack(fill="both", expand=True)
 
-# Set the background image on the canvas
-set_background_image(canvas)
+# Load the image and display it below the entry box
+image_path = "BackgroundTablet.png"  # file path
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+image = Image.open(image_path)
+image = image.resize((screen_width, screen_height), PIL.Image.Resampling.LANCZOS)
+image = ImageTk.PhotoImage(image)
 
+# Create a label to hold the image and place it below the entry box
+image_label = tk.Label(canvas, image=image, bg='#F56600')
+image_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-# Set the text color, size, and font style
+# Text instead of adding it as a part of the background image, not using due to lack of customiation in tkinter.
 #text_label = tk.Label(canvas, text="Scan the reader to sign in", font=("Vendeta", 60), bg='#F56600', fg='#522D80')
 #text_label.place(relx=0.5, rely=0.3, anchor='center')  # Place text label in the middle
 
@@ -75,19 +66,10 @@ entry_frame.place(relx=0.5, rely=0.5, anchor='center')
 # Apply modern styling to the Entry widget
 entry = tk.Entry(entry_frame, font=("Vendeta", 30), justify='center', bd=0, relief=tk.FLAT)
 entry.config(bg='white', fg='#333333', insertbackground='#522D80', highlightthickness=1, highlightbackground='#522D80', highlightcolor='#522D80')
-entry.pack(ipadx=10, ipady=5, padx=10, pady=5)
+entry.pack(ipadx=10, ipady=5, padx=10, pady=5)  # Padding for a modern look
 entry.focus_set()  # Focus the text box automatically
 
-# Load the image and display it below the entry box
-#image_path = "LogoBW.png"  #file path
-#image = Image.open(image_path)
-#image = ImageTk.PhotoImage(image)
-
-# Create a label to hold the image and place it below the entry box
-#image_label = tk.Label(canvas, image=image, bg='#F56600')
-#image_label.place(relx=0.5, rely=0.6, anchor='center')
-
-# ClockIn button
+# ClockIn button (Optional and lowkey useless with kronos rn, might remove, people just use their phones)
 clock_in_button = tk.Button(canvas, text="Employee Clock-In", font=("Helvetica", 16), bg='#522D80', fg='white', command=open_clock_in)
 clock_in_button.place(x=10, y=10)
 

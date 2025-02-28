@@ -2,6 +2,8 @@
 
 The **Makerspace Card Reader Script** manages user check-ins and retrives user data from the clemson student directory to form its own database. The script uses an Excel document to log user details and scan-ins, making it easy to keep track of makerspace usage.
 
+![MakerspaceSignInTablet_wVmxfdiXdg](https://github.com/user-attachments/assets/15e0cceb-7bd7-4f53-afce-c2dc29722155)
+-----------------------------------------------------------------------------------
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)

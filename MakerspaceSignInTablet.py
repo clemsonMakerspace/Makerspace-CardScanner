@@ -1,3 +1,4 @@
+import os 
 import tkinter as tk #graphics
 import PIL
 from PIL import Image, ImageTk #graphics
@@ -5,6 +6,19 @@ from tkinter import Canvas# also graphics
 import random #Plans to add randomized backgrounds or random chance events on scan.
 import webbrowser #to open browser
 import subprocess #to open other script
+import time #for backup
+import shutil #for backup
+import threading #for backup
+from datetime import datetime #for backup
+import psutil #ensure storage space
+
+Location= "Watt"
+file_path = "hardware_users.xlsx"
+
+# Check if there is enough storage space (e.g., at least 100MB free)
+min_free_space_mb = 100
+if psutil.disk_usage('/').free < min_free_space_mb * 1024 * 1024:
+    raise Exception("Not enough storage space to run the script. Please free up some space and try again.")
 
 # Function to handle input from the text box
 def handle_entry(event=None):
@@ -104,6 +118,27 @@ def stop_confetti():
     for confetti, _ in confetti_items:
         canvas.delete(confetti)
     confetti_items.clear()
+
+# Backup functionality
+def backup_file():
+    while True:
+        try:
+            now = datetime.now()
+            date_str = now.strftime("%m_%d_%Y___%H_%M_%S")
+            backup_folder = "backups"
+            if not os.path.exists(backup_folder):
+                os.makedirs(backup_folder)
+            backup_filename = f"hardware_users_{Location}_{date_str}.xlsx"
+            backup_path = os.path.join(backup_folder, backup_filename)
+            shutil.copy("hardware_users.xlsx", backup_path)
+            print(f"Backup created: {backup_path}")
+        except Exception as e:
+            print(f"Failed to create backup: {e}")
+        time.sleep(86400)  # Wait for 24 hours (86400 seconds)
+
+# Start the backup thread
+backup_thread = threading.Thread(target=backup_file, daemon=True)
+backup_thread.start()
 
 # Bind the Enter key to trigger storing the input and confetti animation
 entry.bind('<Return>', handle_entry)

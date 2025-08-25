@@ -1,46 +1,100 @@
 import os 
-import tkinter as tk #graphics
+import tkinter as tk
 import PIL
-from PIL import Image, ImageTk #graphics
-from tkinter import Canvas# also graphics
-import random #Plans to add randomized backgrounds or random chance events on scan.
-import webbrowser #to open browser
-import subprocess #to open other script
-import time #for backup
-import shutil #for backup
-import threading #for backup
-from datetime import datetime #for backup
-import psutil #ensure storage space
+from PIL import Image, ImageTk
+from tkinter import Canvas
+import random
+import webbrowser
+import subprocess
+import time
+import shutil
+import threading
+from datetime import datetime
+import psutil
+from openpyxl import load_workbook
 
-Location= "Watt"
+Location = "Watt"
 file_path = "hardware_users.xlsx"
+sheet_name = "Scans"
 
 # Check if there is enough storage space (e.g., at least 100MB free)
 min_free_space_mb = 100
 if psutil.disk_usage('/').free < min_free_space_mb * 1024 * 1024:
     raise Exception("Not enough storage space to run the script. Please free up some space and try again.")
 
+def add_username_scan(username):
+    """Add a username-only scan to the spreadsheet"""
+    try:
+        workbook = load_workbook(filename=file_path)
+        scans_sheet = workbook[sheet_name]
+        
+        # Add the scan with empty hardware_id, username, and timestamp
+        now = datetime.now()
+        timestamp = now.strftime('%m/%d/%Y %H:%M:%S')
+        scans_sheet.append(["", username, timestamp])  # Empty hardware_id for username-only scans
+        
+        workbook.save(file_path)
+        print(f"Username scan added for {username}, workbook saved.")
+        return True
+    except Exception as e:
+        print(f"Error adding username scan: {e}")
+        return False
+
+def show_generic_welcome_popup(username):
+    """Show a generic welcome popup for username-only entries"""
+    popup = tk.Toplevel()
+    popup.title("Welcome")
+    
+    # Get screen dimensions
+    screen_width = popup.winfo_screenwidth()
+    screen_height = popup.winfo_screenheight()
+    
+    # Configure popup window
+    popup.attributes('-fullscreen', True)
+    popup.attributes('-topmost', True)
+    
+    # Load and scale background image
+    try:
+        image = Image.open("backgroundLarge.png")
+        image = image.resize((screen_width, screen_height), PIL.Image.Resampling.LANCZOS)
+        bg_image = ImageTk.PhotoImage(image)
+        
+        # Keep reference to prevent garbage collection
+        popup.bg_image = bg_image
+        
+        # Create background label
+        background_label = tk.Label(popup, image=bg_image)
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    except:
+        # Fallback to solid color if image not found
+        popup.configure(bg="black")
+    
+    # Create message label
+    message = f"Welcome to the Makerspace, {username}!"
+    message_label = tk.Label(popup, text=message, font=("Helvetica", 40, "bold"), fg="white", bg="black")
+    message_label.place(relx=0.5, rely=0.5, anchor="center")
+    
+    # Close after 2.5 seconds
+    popup.after(2500, popup.destroy)
+
 # Function to handle input from the text box
 def handle_entry(event=None):
-    global hardware_id, username
     user_input = entry.get()
     
     # Check if the input is exactly 6 digits and numerical
     if user_input.isdigit() and len(user_input) == 6:
         hardware_id = user_input
         print(f"Hardware ID entered: {hardware_id}")
-        username = None
-        #start_confetti()  # YIPPPIEEEE CONFETTTIIIIII (commented out bc not being used rn)
-
-        if 'hardware_id' in globals():
-            subprocess.Popen(["python", "CardReaderMakerspace.py", hardware_id])
-        elif 'username' in globals():
-            subprocess.Popen(["python", "CardReaderMakerspace.py", username])
-        else:
-            print("No hardware_id or username is defined.")
+        subprocess.Popen(["python", "CardReaderMakerspace.py", hardware_id])
     else:
-        username = user_input
-        print(f"Username entered: {username}")
+        # Treat as username
+        username = user_input.strip()
+        if username:  # Only process if not empty
+            print(f"Username entered: {username}")
+            # Add to spreadsheet
+            if add_username_scan(username):
+                # Show welcome popup
+                show_generic_welcome_popup(username)
     
     entry.delete(0, tk.END)  # Clear the entry box
 

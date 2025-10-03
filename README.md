@@ -11,6 +11,7 @@ The **Makerspace Card Reader Script** manages user check-ins and retrives user d
 - [Excel Setup](#excel-setup)
 - [Running the Script](#running-the-script)
 - [Libraries](#libraries)
+- [Troubleshooting](#troubleshooting)
 
 ## Overview
 - The Card Reader Script was made to simplify sign-in to the makerspace and replace the web-interface given on the sign-in tablet ([visit.cumaker.space](https://visit.cumaker.space/))
@@ -20,6 +21,7 @@ The **Makerspace Card Reader Script** manages user check-ins and retrives user d
 - Automatic scan-in and logging of makerspace users with only one username entry per scan device.
 - Integration with student directory for retrieving user data.
 - Data logging and editing in an Excel file.
+- Automated Backups: Upon opening the script and every 24 hours, the script will save an automated backup to the backups folder. There is currently not a limit to the amount of backups so ensure to add this when implementing on any device with small avalible memory.
 
 ## Requirements
 
@@ -48,6 +50,7 @@ The **Makerspace Card Reader Script** manages user check-ins and retrives user d
      ```bash
      pip install -r requirements.txt
      ```
+     ***IMPORTANT***: This is currently not functional as the requirements txt is not up to date. Currently you need to keep installing the missing libraries manually. I am sorry in advanced.
    - Ensure the Excel file `hardware_users.xlsx` is not open when running the script, as the data will not be able to write if it's locked by another process.
    - If script still does not run, ensure to pip install remaining missing libraries until program will run, this may take a while.
 
@@ -59,7 +62,7 @@ To run the card reader script:
 ## Libraries 
 An explanation of the required Libraries:
 
-- **Tkinter**: Built-in Python library for GUI creation.
+- **Tkinter**: Built-in Python library for GUI.
 - **Random**: Part of Python’s standard library for generating random numbers. This was going to be used for random chance of fun popups or music to keep the script engagement but has not been implemented yet.
 - **Webbrowser**: Standard Python library to open web browsers and used to open student directory in background.
 - **Subprocess**: Standard library for running external scripts/commands. The second .py file is opened this way to show over the scan screen.
@@ -79,4 +82,9 @@ An explanation of the required Libraries:
 - **BeautifulSoup**: for retrieving user data from the student directory.
 - **Internet access** for retrieving user data from the student directory.
 
-Donations: Paw points for a Caniac Combo are accepted
+## Troubleshooting:
+- Within the first year of implementation the most common error seems to be the corruption of the excel file during the write operation. I am unsure what causes this but its likely to do with multiple scans writing during the save operation of the excel sheet. Do not use the "fixed or recovered" excel sheets as they do not work, you need to replace the hardware_users.xlsx entirely with a functional excel file.
+ **Solution**: The script makes automated backups upon the launch and every 24 hours, please locate the most recent functional excel sheet and replace the "hardware_users.xlsx" with a functional file by renaming and swapping the files.
+
+
+Donations: Paw points for a Caniac Combo are accepted. (Please please please please)

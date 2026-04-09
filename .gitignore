@@ -68,11 +68,20 @@ dist/
 deployment/
 portable/
 
+# Installer build artefacts (source scripts are tracked)
+installer/build/
+installer/output/
+
 # Compiled executables
 *.exe
 
 # PyInstaller
 *.manifest
+
+# Auto-updater artefacts
+.version
+update.log
+*.update_backup
 
 # ==============================================
 # OS files

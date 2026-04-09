@@ -1,0 +1,40 @@
+# Essential requirements for Makerspace Card Scanner
+# Python 3.10.6 compatible versions
+# Generated: October 30, 2025
+
+# GUI Framework
+customtkinter==5.2.2
+Pillow==10.4.0
+
+# Excel Processing
+openpyxl==3.1.5
+
+# Web Scraping & Automation
+selenium==4.23.1
+webdriver-manager==4.0.2
+beautifulsoup4==4.12.3
+requests==2.32.3
+
+# System Monitoring
+psutil==6.1.0
+
+# Machine Learning (if using MachineLearning.py)
+numpy==1.26.4
+torch==2.5.0
+
+# Input Handling
+keyboard==0.13.5
+pynput==1.7.7
+
+# Windows Support
+pywin32==307
+
+# Packaging Tools
+cx_Freeze==7.2.3
+pyinstaller==6.11.0
+
+# Core Dependencies
+certifi==2024.7.4
+charset-normalizer==3.3.2
+urllib3==2.2.2
+python-dateutil==2.9.0.post0

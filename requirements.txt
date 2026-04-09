@@ -18,6 +18,7 @@ cx_Freeze==7.2.3
 cx_Logging==3.2.1
 cycler==0.12.1
 darkdetect==0.8.0
+schedule>=1.2.0
 et-xmlfile==1.1.0
 exceptiongroup==1.2.2
 filelock==3.16.1

@@ -425,7 +425,7 @@ def main():
 
     # Step 0: Clean
     if args.clean:
-        banner("Step 0/6: Cleaning build directory")
+        banner("Step 0/7: Cleaning build directory")
         step_clean(BUILD_DIR)
     else:
         os.makedirs(BUILD_DIR, exist_ok=True)

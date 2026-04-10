@@ -8,7 +8,7 @@
 ; ============================================================
 
 #define MyAppName       "Makerspace Card Scanner"
-#define MyAppVersion    "1.5"
+#define MyAppVersion    "1.6"
 #define MyAppPublisher  "Clemson Makerspace"
 #define MyAppURL        "https://github.com/clemsonMakerspace/Makerspace-CardScanner"
 #define MyAppExeName    "MakerspaceScanner.bat"

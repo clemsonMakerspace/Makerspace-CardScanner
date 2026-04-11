@@ -51,7 +51,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Additional shortcuts:"; Flags: unchecked
-Name: "autoupdate"; Description: "Enable automatic updates from GitHub (runs daily at midnight)"; GroupDescription: "Auto-updater:"; Flags: checked
+Name: "autoupdate"; Description: "Enable automatic updates from GitHub (runs daily at midnight)"; GroupDescription: "Auto-updater:"
 
 [Files]
 ; --- Embedded Python runtime ---
@@ -69,19 +69,12 @@ Source: "build\config_examples.py";        DestDir: "{app}"; Flags: ignoreversio
 Source: "build\auto_updater.py";           DestDir: "{app}"; Flags: ignoreversion
 Source: "build\fetch_missing_training.py"; DestDir: "{app}"; Flags: ignoreversion
 Source: "build\fetch_missing_training.bat";DestDir: "{app}"; Flags: ignoreversion
-Source: "build\test_scanner_simulation.py";DestDir: "{app}"; Flags: ignoreversion
 Source: "build\MakerspaceScanner.bat";     DestDir: "{app}"; Flags: ignoreversion
 
 ; --- Image assets (always overwritten on upgrade) ---
-; skipifsourcedoesntexist handles optional images gracefully
-Source: "build\BackgroundTablet.png";       DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-Source: "build\BackgroundWatt.png";         DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-Source: "build\BackgroundAdobe.png";        DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-Source: "build\BackgroundTabletLaptop.png"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-Source: "build\background.png";             DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-Source: "build\backgroundWattScreen.png";   DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-Source: "build\background2.png";            DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
-Source: "build\LogoBW.png";                 DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
+Source: "build\BackgroundTablet.png";       DestDir: "{app}"; Flags: ignoreversion
+Source: "build\BackgroundWatt.png";         DestDir: "{app}"; Flags: ignoreversion
+Source: "build\BackgroundAdobe.png";        DestDir: "{app}"; Flags: ignoreversion
 Source: "build\MakerspaceLogoIcon.ico";     DestDir: "{app}"; Flags: ignoreversion
 
 ; --- Version tracker ---
@@ -123,7 +116,8 @@ Filename: "{app}\{#MyAppExeName}"; \
 ; Remove the scheduled task on uninstall
 Filename: "schtasks.exe"; \
     Parameters: "/delete /tn ""MakerspaceCardScanner_AutoUpdate"" /f"; \
-    Flags: runhidden
+    Flags: runhidden; \
+    RunOnceId: "RemoveAutoUpdateTask"
 
 [UninstallDelete]
 ; Clean up generated files (but NOT user data)
@@ -149,12 +143,15 @@ begin
     begin
         ConfigFile := ExpandConstant('{app}\config.py');
 
-        // Show first-run configuration reminder
-        Msg := 'Installation complete!' + #13#10 + #13#10 +
-               'IMPORTANT: Before first use, please edit:' + #13#10 +
-               '  ' + ConfigFile + #13#10 + #13#10 +
-               'Set your location (Watt/Cooper) and Bridge API credentials.' + #13#10 +
-               'See config_examples.py for reference configurations.';
-        MsgBox(Msg, mbInformation, MB_OK);
+        // Show first-run configuration reminder (skip in silent mode)
+        if not WizardSilent then
+        begin
+            Msg := 'Installation complete!' + #13#10 + #13#10 +
+                   'IMPORTANT: Before first use, please edit:' + #13#10 +
+                   '  ' + ConfigFile + #13#10 + #13#10 +
+                   'Set your location (Watt/Cooper) and Bridge API credentials.' + #13#10 +
+                   'See config_examples.py for reference configurations.';
+            MsgBox(Msg, mbInformation, MB_OK);
+        end;
     end;
 end;

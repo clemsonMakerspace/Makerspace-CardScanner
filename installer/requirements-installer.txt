@@ -19,8 +19,8 @@ requests==2.32.3
 # System Monitoring
 psutil==6.1.0
 
+# Task Scheduling
+schedule==1.2.2
+
 # Windows Support
 pywin32==307
-
-# Screen Detection
-screeninfo==0.8.1

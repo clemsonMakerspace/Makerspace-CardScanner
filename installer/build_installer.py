@@ -56,7 +56,6 @@ APP_SOURCE_FILES = [
     "auto_updater.py",
     "fetch_missing_training.py",
     "fetch_missing_training.bat",
-    "test_scanner_simulation.py",
     "MakerspaceScanner.bat",
 ]
 
@@ -64,11 +63,6 @@ APP_ASSET_FILES = [
     "BackgroundTablet.png",
     "BackgroundWatt.png",
     "BackgroundAdobe.png",
-    "BackgroundTabletLaptop.png",
-    "background.png",
-    "backgroundWattScreen.png",
-    "background2.png",
-    "LogoBW.png",
     "MakerspaceLogoIcon.ico",
 ]
 
@@ -78,6 +72,7 @@ REQUIREMENTS_FILE = os.path.join(SCRIPT_DIR, "requirements-installer.txt")
 ISCC_PATHS = [
     r"C:\Program Files (x86)\Inno Setup 6\ISCC.exe",
     r"C:\Program Files\Inno Setup 6\ISCC.exe",
+    os.path.join(os.environ.get("LOCALAPPDATA", ""), "Programs", "Inno Setup 6", "ISCC.exe"),
     r"C:\Program Files (x86)\Inno Setup 5\ISCC.exe",
 ]
 
@@ -219,6 +214,9 @@ def step_enable_pip(python_dir, python_version):
         # Ensure Lib/ and Lib/site-packages are on the path
         fh.write("Lib\n")
         fh.write("Lib\\site-packages\n")
+        # Add parent directory so app .py files are importable
+        # (python/ is a subdirectory of the install dir where .py files live)
+        fh.write("..\n")
 
     # Download get-pip.py
     get_pip_path = os.path.join(python_dir, "get-pip.py")

@@ -35,6 +35,8 @@ if not exist "%PYTHON_EXE%" (
 REM ---- Set environment for embedded Python -------------------
 set "PATH=%PYTHON_DIR%;%PYTHON_DIR%\Scripts;%PATH%"
 set "PYTHONPATH=%~dp0"
+set "PYTHONIOENCODING=utf-8"
+set "PYTHONUTF8=1"
 
 REM ---- Set Tcl/Tk paths for tkinter (needed by embedded Python) ---
 if exist "%PYTHON_DIR%\tcl\tcl8.6" (

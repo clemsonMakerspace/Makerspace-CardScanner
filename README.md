@@ -86,5 +86,8 @@ An explanation of the required Libraries:
 - Within the first year of implementation the most common error seems to be the corruption of the excel file during the write operation. I am unsure what causes this but its likely to do with multiple scans writing during the save operation of the excel sheet. Do not use the "fixed or recovered" excel sheets as they do not work, you need to replace the hardware_users.xlsx entirely with a functional excel file.
  **Solution**: The script makes automated backups upon the launch and every 24 hours, please locate the most recent functional excel sheet and replace the "hardware_users.xlsx" with a functional file by renaming and swapping the files.
 
+## General Flow (most likely outdated but still relatively accurate):
+<img width="4032" height="2268" alt="PXL_20250918_031156155" src="https://github.com/user-attachments/assets/6fd260d4-f098-4710-80f5-5706dac6615c" />
+
 
 Donations: Paw points for a Caniac Combo are accepted. (Please please please please)

@@ -1,4 +1,4 @@
-# Makerspace Card Reader Script
+<img width="2268" height="4032" alt="image" src="https://github.com/user-attachments/assets/179efee4-6654-4e7d-af8e-5c053695478e" /># Makerspace Card Reader Script
 
 The **Makerspace Card Reader Script** manages user check-ins and retrives user data from the clemson student directory to form its own database. The script uses an Excel document to log user details and scan-ins, making it easy to keep track of makerspace usage.
 
@@ -87,7 +87,7 @@ An explanation of the required Libraries:
  **Solution**: The script makes automated backups upon the launch and every 24 hours, please locate the most recent functional excel sheet and replace the "hardware_users.xlsx" with a functional file by renaming and swapping the files.
 
 ## General Flow (most likely outdated but still relatively accurate):
-<img width="4032" height="2268" alt="PXL_20250918_031156155" src="https://github.com/user-attachments/assets/6fd260d4-f098-4710-80f5-5706dac6615c" />
+<img width="2268" height="4032" alt="image" src="https://github.com/user-attachments/assets/b0c65500-653c-493f-8dba-9247ca6101a5" />
 
 
 Donations: Paw points for a Caniac Combo are accepted. (Please please please please)
